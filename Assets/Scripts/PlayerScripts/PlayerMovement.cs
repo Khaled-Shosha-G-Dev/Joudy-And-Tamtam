@@ -4,23 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Animator playerAnim;
     
     private Rigidbody myBody;
 
     [SerializeField] private float speed;
 
+    [SerializeField] private CharacterAnimations charAnim;
 
     void Awake()
     {
-        playerAnim = GetComponentInChildren<Animator>();
-        myBody = GetComponent<Rigidbody>();
         transform.rotation = Quaternion.Euler(0,90f,0);
+
+        myBody = GetComponent<Rigidbody>();
+        
+        charAnim = GetComponentInChildren<CharacterAnimations>();
     }
 
 
     void Update()
     {
+
         PlayerRotation();
         PlayerAnimation();
     }
@@ -28,43 +31,36 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         PlayerMovements();
-      
     }
 
     private void PlayerMovements()
     {
         myBody.velocity = new Vector3(
-            Input.GetAxisRaw("Horizontal")*(-speed),
+            Input.GetAxisRaw(Axis.HORIZONTAL_AXIS)*(-speed),
             myBody.velocity.y,
-            Input.GetAxisRaw("Vertical")* (-speed)
+            Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (-speed)
             );
     }
 
     private void PlayerRotation()
     {
-        if(Input.GetAxisRaw("Horizontal")>0)
-        {
+        if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) >0)
             transform.rotation = Quaternion.Euler(0,-90f,0);
-            playerAnim.SetBool("Walk", true);
-        }
-        else if(Input.GetAxisRaw("Horizontal")<0)
-        {
-            playerAnim.SetBool("Walk", true);
+        else if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS) <0)
             transform.rotation = Quaternion.Euler(0,90,0);
-        }
+
     }
     private void PlayerAnimation()
     {
-        if(Input.GetAxisRaw("Horizontal")  != 0 || Input.GetAxisRaw("Vertical")!= 0) 
+        if(Input.GetAxisRaw(Axis.HORIZONTAL_AXIS)  != 0 || Input.GetAxisRaw(Axis.VERTICAL_AXIS) != 0) 
         {
-            playerAnim.SetBool("Walk", true);
+            charAnim.Walk(true);
         }
         else
         {
-            playerAnim.SetBool("Walk", false);
+            charAnim.Walk(false);
         }
 
     }
-
 
 }

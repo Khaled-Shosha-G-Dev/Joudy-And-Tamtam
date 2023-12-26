@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Enemy
+  - HandAttack
+  - LegAttack
   layers:
   - Default
   - TransparentFX
