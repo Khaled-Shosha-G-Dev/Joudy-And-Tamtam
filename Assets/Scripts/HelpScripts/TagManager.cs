@@ -5,6 +5,10 @@ using UnityEngine;
 public class Animation
 {
     public const string MOVEMENT = "Walk";
+    public const string IDEL_ANIMATION = "Idel";
+    public const string HIT_TRIGGER = "Hit";
+    public const string DEATH_TRIGGER = "Death";
+    //Player
     public const string PUNCH_1_TRIGGER = "Punch1";
     public const string PUNCH_2_TRIGGER = "Punch2";
     public const string PUNCH_3_TRIGGER = "Punch3";
@@ -15,17 +19,12 @@ public class Animation
     public const string KICK_3_TRIGGER = "Kick3";
     public const string KICK_4_TRIGGER = "Kick4";
 
-    public const string ATTACK_1_TRIGGER = "Attack1";
-    public const string ATTACK_2_TRIGGER = "Attack2";
-    public const string ATTACK_3_TRIGGER = "Attack3";
-
-    public const string IDEL_ANIMATION = "Idel";
-
     public const string KNOCK_DOWN_TRIGGER = "KnockDown";
     public const string STAND_UP_TRIGGER = "StandUp";
-    public const string HIT_TRIGGER = "Hit";
-    public const string DEATH_TRIGGER = "Death";
 
+    //Enemy
+    public const string PUNCHES = "Punch";
+    public const string KICK = "Kick";
 }
 
 public class Axis

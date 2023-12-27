@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private CharacterAnimations charAnim;
 
+    private PlayerHealth health;
+
     void Awake()
     {
         transform.rotation = Quaternion.Euler(0,90f,0);
@@ -18,19 +20,25 @@ public class PlayerMovement : MonoBehaviour
         myBody = GetComponent<Rigidbody>();
         
         charAnim = GetComponentInChildren<CharacterAnimations>();
+
+        health = GetComponentInChildren<PlayerHealth>();
     }
 
 
     void Update()
     {
+        if (health.isAlive)
+        {
+            PlayerRotation();
 
-        PlayerRotation();
-        PlayerAnimation();
+            PlayerAnimation();
+        }
     }
 
     private void FixedUpdate()
     {
-        PlayerMovements();
+        if(health.isAlive)
+            PlayerMovements();
     }
 
     private void PlayerMovements()

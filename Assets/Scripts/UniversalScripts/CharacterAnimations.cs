@@ -69,4 +69,13 @@ public class CharacterAnimations : MonoBehaviour
     {
         anim.SetTrigger(Animation.DEATH_TRIGGER);
     }
+    // Enemy Punches
+    public void Punches()
+    {
+        anim.SetTrigger(Animation.PUNCHES);
+    }
+    public void Kick() 
+    {
+        anim.SetTrigger(Animation.KICK);
+    }
 }

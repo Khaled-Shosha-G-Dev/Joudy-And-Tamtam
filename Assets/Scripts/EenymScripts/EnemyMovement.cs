@@ -7,10 +7,20 @@ public class EnemyMovement : MonoBehaviour
     //player
     private Transform playerPos;
 
+    //Walking Distance
     private float disctanceBetweenPlayerAndEnemy;
+
+    //Attacking Distance
     [SerializeField] private float attackDistance;
 
+    //Walking speed
     [SerializeField]private float speed;
+
+    private EnemyHealth health;
+
+    private CharacterAnimations charAnim;
+
+    private EnemyAttack enemyAttack;
 
     private Rigidbody myBody;
 
@@ -18,6 +28,12 @@ public class EnemyMovement : MonoBehaviour
     void Awake()
     {
         playerPos = GameObject.FindWithTag("Player")?.transform;
+
+        charAnim = GetComponentInChildren<CharacterAnimations>();
+
+        health = GetComponentInChildren<EnemyHealth>();
+
+        enemyAttack = GetComponent<EnemyAttack>();
         myBody = GetComponent<Rigidbody>();
     }
 
@@ -25,6 +41,7 @@ public class EnemyMovement : MonoBehaviour
     void Update()
     {
         DistacneCalculater();
+        EnemyAnimatioin();
     }
     private void FixedUpdate()
     {
@@ -33,13 +50,15 @@ public class EnemyMovement : MonoBehaviour
 
     private void CatchPlayer()
     {
-        if(disctanceBetweenPlayerAndEnemy>attackDistance)
+        if(disctanceBetweenPlayerAndEnemy>attackDistance && health.isAlive)
         {
             transform.LookAt(playerPos.position);
             myBody.velocity = transform.forward * speed;
+            charAnim.Walk(true);
         }
-        else
+        else if(health.isAlive && disctanceBetweenPlayerAndEnemy <= attackDistance) 
         {
+            charAnim.Walk(false);
             transform.LookAt(playerPos.position);
             myBody.velocity = Vector3.zero; 
             //Attack on Player
@@ -48,5 +67,20 @@ public class EnemyMovement : MonoBehaviour
     private void DistacneCalculater()
     {
         disctanceBetweenPlayerAndEnemy = Vector3.Distance(transform.position , playerPos.position);
+    }
+    private void EnemyAnimatioin()
+    {
+        if (disctanceBetweenPlayerAndEnemy > attackDistance && health.isAlive)
+        {
+            charAnim.Walk(true);
+        }
+        else if (health.isAlive && disctanceBetweenPlayerAndEnemy <= attackDistance)
+        {
+            charAnim.Walk(false);
+            enemyAttack.EnemyAttacks();
+        }
+        //else if(!health.isAlive)
+        //    health.EnemyDeathAniamtion();
+
     }
 }
