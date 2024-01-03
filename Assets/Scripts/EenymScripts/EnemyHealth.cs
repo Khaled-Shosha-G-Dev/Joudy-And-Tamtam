@@ -12,11 +12,13 @@ public class EnemyHealth : MonoBehaviour
     private CharacterAnimations charAnim;
     [SerializeField] private Healthbar enemyHealthBar;
     [SerializeField] private GameObject Enemy;
+    private EnemyMovement enemyMovement;
     void Awake()
     {
         currentHealth = maxHealth;
         enemyHealthBar.SetMAXhealthbar(maxHealth);
         charAnim = GetComponent<CharacterAnimations>();
+        enemyMovement = GetComponentInParent<EnemyMovement>();
     }
 
     private void Update()
@@ -24,6 +26,7 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <=0) 
         {
             isAlive = false;
+            enemyMovement.DisableEenmyCollider();
             EnemyDeathAniamtion();
         }
     }
@@ -35,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
             Damage(10);
             charAnim.Hit();
         }
-        else if (other.CompareTag(Tags.lEG_ATTACK)&& currentHealth > 0)
+        else if (other.CompareTag(Tags.LEG_ATTACK)&& currentHealth > 0)
         { 
             Damage(20);         
             charAnim.Hit();
@@ -63,5 +66,13 @@ public class EnemyHealth : MonoBehaviour
             Debug.Log(currentHealth);
             currentDeathTime = 0;
         }
+    }
+    private void StopMovement()
+    {
+        enemyMovement.enabled = false;
+    }
+    private void KeepMovement()
+    {
+        enemyMovement.enabled=true;
     }
 }

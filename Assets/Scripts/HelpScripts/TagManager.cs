@@ -45,6 +45,8 @@ public class Tags
     public const string MAIN_CAMERA_TAG = "MainCamera";
     public const string HEALTH_UI = "HealthUI";
 
-    public const string lEG_ATTACK = "LegAttack";
+    public const string LEG_ATTACK = "LegAttack";
     public const string Hand_ATTACK = "HandAttack";
+    public const string Enemy_LEG_ATTACK = "E_LegAttack";
+    public const string Enemy_Hand_ATTACK = "E_HandAttack";
 }

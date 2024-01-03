@@ -30,12 +30,12 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(Tags.Hand_ATTACK) && currentHealth > 0)
+        if (other.CompareTag(Tags.Enemy_Hand_ATTACK) && currentHealth > 0)
         {
             Damage(5);
             charAnim.Hit();
         }
-        else if (other.CompareTag(Tags.lEG_ATTACK) && currentHealth > 0)
+        else if (other.CompareTag(Tags.Enemy_LEG_ATTACK) && currentHealth > 0)
         {
             Damage(10);
             charAnim.Hit();

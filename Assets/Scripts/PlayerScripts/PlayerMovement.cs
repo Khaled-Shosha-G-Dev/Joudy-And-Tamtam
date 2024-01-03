@@ -7,7 +7,8 @@ public class PlayerMovement : MonoBehaviour
     
     private Rigidbody myBody;
 
-    [SerializeField] private float speed;
+    [SerializeField] private float speedXAxi;
+    [SerializeField] private float speedZAxi;
 
     [SerializeField] private CharacterAnimations charAnim;
 
@@ -44,9 +45,9 @@ public class PlayerMovement : MonoBehaviour
     private void PlayerMovements()
     {
         myBody.velocity = new Vector3(
-            Input.GetAxisRaw(Axis.HORIZONTAL_AXIS)*(-speed),
+            Input.GetAxisRaw(Axis.HORIZONTAL_AXIS)*(-speedXAxi),
             myBody.velocity.y,
-            Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (-speed)
+            Input.GetAxisRaw(Axis.VERTICAL_AXIS) * (-speedZAxi)
             );
     }
 

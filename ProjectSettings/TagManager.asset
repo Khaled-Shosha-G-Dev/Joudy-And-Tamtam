@@ -8,6 +8,8 @@ TagManager:
   - Enemy
   - HandAttack
   - LegAttack
+  - E_HandAttack
+  - E_LegAttack
   layers:
   - Default
   - TransparentFX

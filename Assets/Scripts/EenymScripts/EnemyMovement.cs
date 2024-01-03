@@ -13,16 +13,21 @@ public class EnemyMovement : MonoBehaviour
     //Attacking Distance
     [SerializeField] private float attackDistance;
 
+    //Attacking
+    private EnemyAttack enemyAttack;
+
     //Walking speed
     [SerializeField]private float speed;
 
+    //EnemyHealth
     private EnemyHealth health;
 
-    private CharacterAnimations charAnim;
-
-    private EnemyAttack enemyAttack;
-
+    //Combonent
     private Rigidbody myBody;
+    private Collider myCollider;
+
+    //Animation
+    private CharacterAnimations charAnim;
 
     // Start is called before the first frame update
     void Awake()
@@ -35,30 +40,34 @@ public class EnemyMovement : MonoBehaviour
 
         enemyAttack = GetComponent<EnemyAttack>();
         myBody = GetComponent<Rigidbody>();
+        myCollider = GetComponent<Collider>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        DistacneCalculater();
-        EnemyAnimatioin();
+        if (playerPos != null)
+        {
+            DistacneCalculater();
+            EnemyAnimatioin();
+        }
     }
     private void FixedUpdate()
     {
-         CatchPlayer();
+        if (playerPos != null)
+            CatchPlayer();
     }
 
     private void CatchPlayer()
     {
-        if(disctanceBetweenPlayerAndEnemy>attackDistance && health.isAlive)
+        if(disctanceBetweenPlayerAndEnemy>attackDistance && health.isAlive )
         {
             transform.LookAt(playerPos.position);
             myBody.velocity = transform.forward * speed;
-            charAnim.Walk(true);
         }
-        else if(health.isAlive && disctanceBetweenPlayerAndEnemy <= attackDistance) 
+        else if(health.isAlive && disctanceBetweenPlayerAndEnemy <= attackDistance ) 
         {
-            charAnim.Walk(false);
             transform.LookAt(playerPos.position);
             myBody.velocity = Vector3.zero; 
             //Attack on Player
@@ -82,5 +91,13 @@ public class EnemyMovement : MonoBehaviour
         //else if(!health.isAlive)
         //    health.EnemyDeathAniamtion();
 
+    }
+    public void DisableEenmyCollider()
+    {
+        if (!health.isAlive)
+        {
+            myBody.useGravity = false;
+            myCollider.enabled = false;
+        }
     }
 }
