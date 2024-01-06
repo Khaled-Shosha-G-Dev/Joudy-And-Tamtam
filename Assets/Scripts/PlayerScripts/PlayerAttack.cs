@@ -12,7 +12,6 @@ public enum ComboAttack
     Punch1,
     Punch2,
     Punch3,
-    Punch4,
 
 }
 
@@ -34,7 +33,7 @@ public class PlayerAttack : MonoBehaviour
     //display diffrent punchs randomly
     private void ComboPunchs()
     {
-        int randomPunch = Random.Range(5,9);
+        int randomPunch = Random.Range(5,8);
         if (Input.GetKeyDown(KeyCode.F))
         {
             ComboAttack selectedAttack = (ComboAttack)randomPunch;
@@ -44,8 +43,6 @@ public class PlayerAttack : MonoBehaviour
                 charAnim.Punch_2();
             else if (selectedAttack == ComboAttack.Punch3)
                 charAnim.Punch_3();
-            else if (selectedAttack == ComboAttack.Punch4)
-                charAnim.Punch_4();
         }
     }
 

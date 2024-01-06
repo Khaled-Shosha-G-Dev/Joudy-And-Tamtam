@@ -72295,6 +72295,20 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0
+    functionName: CameraZoomIn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.3
+    functionName: Kick_FX_Sound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.55
     functionName: EnableRightLegPoint
     data: 
@@ -72304,6 +72318,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.96666664
     functionName: DisableRightLegPoint
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6666666
+    functionName: CameraZoomOut
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

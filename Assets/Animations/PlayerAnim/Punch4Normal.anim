@@ -29887,6 +29887,20 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+  - time: 0.016666668
+    functionName: CameraZoomIn
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.083333336
+    functionName: Punch_FX_Sound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
   - time: 0.16666667
     functionName: EnableRightHandPoint
     data: 
@@ -29896,6 +29910,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.33333334
     functionName: DisableRightHandPoint
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.56666666
+    functionName: CameraZoomOut
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

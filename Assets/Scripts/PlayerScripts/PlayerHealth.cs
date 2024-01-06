@@ -49,10 +49,6 @@ public class PlayerHealth : MonoBehaviour
             PlayerHealthBar.SetHealthbar(currentHealth);
         }
     }
-    private void DeletePlayer()
-    {
-        Destroy(player);
-    }
     public void PlayerDeathAniamtion()
     {
         currentDeathTime += Time.deltaTime;
@@ -62,5 +58,10 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log(currentHealth);
             currentDeathTime = 0;
         }
+    }
+    //character delegate function
+    private void DeletePlayer()
+    {
+        Destroy(player);
     }
 }
