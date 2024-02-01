@@ -10,6 +10,8 @@ TagManager:
   - LegAttack
   - E_HandAttack
   - E_LegAttack
+  - RightHandIK
+  - LeftHandIK
   layers:
   - Default
   - TransparentFX

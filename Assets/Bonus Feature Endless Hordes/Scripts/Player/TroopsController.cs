@@ -8,7 +8,7 @@ public class TroopsController : MonoBehaviour
     private int _numberOfTroops = 0;
     private List<Troop> _troopsCollection = new List<Troop>();
 
-    private Rect boundingVolume = new Rect(0f, 0f, 2f, 2f);
+    private Rect boundingVolume = new Rect(0f, 0f, 1f, 1f);
 
     [Tooltip("Bounds from the center of the world to the edges, Note that the height in inimportant")]
     public float MaxBoundsHorizontally;
@@ -16,6 +16,7 @@ public class TroopsController : MonoBehaviour
     [SerializeField] private List<Vector3> preDeterminedPositions = new List<Vector3>();
     [SerializeField] private Troop _troopPrefab;
 
+    private Vector3 worldSpaceIntersectionPoint = Vector3.zero;
 
     #if UNITY_EDITOR
     //Debug Purposes only.
@@ -32,35 +33,58 @@ public class TroopsController : MonoBehaviour
 
         _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
         _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
+        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
+        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
+        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
+        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
     } 
 
     void Update()
     {
         Ray screenToCursorRay = HelperFunctions.GetMainCamera.ScreenPointToRay(Input.mousePosition);
         Plane plane = new Plane(Vector3.up, Vector3.zero);
-        if(plane.Raycast(screenToCursorRay, out float distance)){
-            Vector3 worldSpaceIntersectionPoint = transform.position + screenToCursorRay.direction*distance;
-            #if UNITY_EDITOR
+        
+        if(plane.Raycast(screenToCursorRay, out float distance) && Input.GetMouseButton(1))
+            worldSpaceIntersectionPoint = transform.position + screenToCursorRay.direction*distance;
+        
+
+        worldSpaceIntersectionPoint = new Vector3(
+        ClampValueInTheBoundingVolume(worldSpaceIntersectionPoint.x), //clamp x
+        worldSpaceIntersectionPoint.y,
+        worldSpaceIntersectionPoint.z 
+        );
+        #if UNITY_EDITOR
             debugintersectionpoint = worldSpaceIntersectionPoint;
-            #endif
+        #endif
+        float difference = worldSpaceIntersectionPoint.x - transform.position.x;
+        float Speed = MathUtilities.Remap(0.0f, 3f, 0.0f, 1.0f, Mathf.Abs(difference));
 
-            float difference = worldSpaceIntersectionPoint.x - transform.position.x;
-            float Speed = MathUtilities.Remap(0.0f, 5f, 0.0f, 1.0f, Mathf.Abs(difference));
-            Debug.Log(worldSpaceIntersectionPoint);
-            foreach(var troop in _troopsCollection){
-                troop.NotifyTroops(Speed * Mathf.Sign(difference));
-            }
+        if(Speed < 0.1f) Speed = 0f;
+        
+        foreach(var troop in _troopsCollection){
+            troop.NotifyTroops(Speed * Mathf.Sign(difference));
 
-            transform.position = new Vector3(Mathf.MoveTowards(transform.position.x, worldSpaceIntersectionPoint.x, 4f * Speed * Time.deltaTime), transform.position.y, transform.position.z);
-            transform.position = new Vector3(Mathf.Clamp(transform.position.x, -MaxBoundsHorizontally + boundingVolume.width, MaxBoundsHorizontally - boundingVolume.width), transform.position.y, transform.position.z);
         }
+
+        transform.position = new Vector3(
+        Mathf.MoveTowards(transform.position.x, worldSpaceIntersectionPoint.x, 7f * Speed * Time.deltaTime), 
+        transform.position.y, 
+        transform.position.z
+        );
+        transform.position = new Vector3(
+        ClampValueInTheBoundingVolume(transform.position.x), 
+        transform.position.y, 
+        transform.position.z);
 
     }
 
+    float ClampValueInTheBoundingVolume(float v){
+        return Mathf.Clamp(v, -MaxBoundsHorizontally + boundingVolume.width / 2f, MaxBoundsHorizontally - boundingVolume.width / 2f);
+    }
 
     void UpdateBoundingVolume(){
-        float maxWidth = 1f;
-        float maxHeight = 1f;
+        float maxWidth = 0.5f;
+        float maxHeight = 0.5f;
         foreach(var troop in _troopsCollection){
             maxWidth = Mathf.Max(maxWidth, Mathf.Abs(troop.transform.localPosition.x));
             maxHeight = Mathf.Max(maxHeight, Mathf.Abs(troop.transform.localPosition.z));

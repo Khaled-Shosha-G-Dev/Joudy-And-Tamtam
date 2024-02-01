@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce04c8b6387d58e3ba23547efe617588, type: 3}
+  m_Name: M4_8
+  m_EditorClassIdentifier: 
+  rposition: {x: 0.162, y: 1.279, z: 0.308}
+  rrotation: {x: 0.54121447, y: -0.27841038, z: 0.4688812, w: 0.64009774}
+  rscale: {x: 1, y: 1, z: 1}
+  lposition: {x: 0.081, y: 1.324, z: 0.567}
+  lrotation: {x: -0.0077687195, y: 0.1371252, z: 0.9779045, w: -0.1576046}
+  lscale: {x: 1, y: 1, z: 1}
