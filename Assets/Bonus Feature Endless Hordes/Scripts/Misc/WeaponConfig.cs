@@ -17,6 +17,12 @@ public class WeaponConfig : ScriptableObject
     [SerializeField][FormerlySerializedAs("Rotation")] public Quaternion lrotation = Quaternion.identity;
     [SerializeField][FormerlySerializedAs("Scale")] public Vector3 lscale = Vector3.one;
 
+    [Header("Weapon Properties")]
+    [SerializeField] public float Damage = 5f;
+
+    [Tooltip("How many bullets fired in a second.")]
+    [SerializeField] public float fireRate = 20f;
+
     [HideInInspector()]
     public Matrix4x4 GetRightHandMatrix{
         get {

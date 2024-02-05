@@ -9,6 +9,9 @@ public class Weapon : MonoBehaviour
     public Transform rHand;
     public Transform lHand;
 
+    public ParticleSystem muzzleFlash;
+    
+    public Projectile projectile;
     void Start()
     {
         var parentTroop = transform.parent.GetComponent<Troop>();
@@ -25,6 +28,16 @@ public class Weapon : MonoBehaviour
             lHand.localPosition = weaponConfig.lposition;
             lHand.localRotation = weaponConfig.lrotation;
             lHand.localScale = weaponConfig.lscale;
+        }
+
+        StartCoroutine(Shoot());
+    }
+
+    IEnumerator Shoot(){
+        while(true){
+            muzzleFlash?.Play();
+            Instantiate(projectile, muzzleFlash.transform.position, Quaternion.identity, null);
+            yield return HelperFunctions.GetWaitForSeconds(1f / weaponConfig.fireRate);
         }
     }
 }

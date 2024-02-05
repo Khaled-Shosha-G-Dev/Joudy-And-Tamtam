@@ -21,9 +21,13 @@ public class TroopsController : MonoBehaviour
     #if UNITY_EDITOR
     //Debug Purposes only.
     Vector3 debugintersectionpoint;
+
+    Vector3 startPos = Vector3.zero;
     #endif
     public static TroopsController troopsController = null; 
     private void Start(){
+        startPos = transform.position;
+        
         if(!troopsController){
             troopsController = this;
         }
@@ -31,6 +35,14 @@ public class TroopsController : MonoBehaviour
             Debug.LogError("CAN'T HAVE MORE THAN ONE TROOPCONTROLLER");
         }
 
+        worldSpaceIntersectionPoint = transform.forward;
+
+        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
+        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
+        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
+        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
+        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
+        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
         _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
         _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
         _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
@@ -45,18 +57,18 @@ public class TroopsController : MonoBehaviour
         Plane plane = new Plane(Vector3.up, Vector3.zero);
         
         if(plane.Raycast(screenToCursorRay, out float distance) && Input.GetMouseButton(1))
-            worldSpaceIntersectionPoint = transform.position + screenToCursorRay.direction*distance;
+            worldSpaceIntersectionPoint = HelperFunctions.GetMainCamera.transform.position + screenToCursorRay.direction*distance;
         
 
-        worldSpaceIntersectionPoint = new Vector3(
-        ClampValueInTheBoundingVolume(worldSpaceIntersectionPoint.x), //clamp x
-        worldSpaceIntersectionPoint.y,
-        worldSpaceIntersectionPoint.z 
-        );
+        //worldSpaceIntersectionPoint = transform.InverseTransformPoint(worldSpaceIntersectionPoint);
+        worldSpaceIntersectionPoint = worldSpaceIntersectionPoint.ClampX(startPos.x -MaxBoundsHorizontally + boundingVolume.width / 2f, startPos.x + MaxBoundsHorizontally - boundingVolume.width / 2f );
         #if UNITY_EDITOR
             debugintersectionpoint = worldSpaceIntersectionPoint;
         #endif
+
         float difference = worldSpaceIntersectionPoint.x - transform.position.x;
+        //float difference = worldSpaceIntersectionPoint.x; // because it's in localspace 
+        
         float Speed = MathUtilities.Remap(0.0f, 3f, 0.0f, 1.0f, Mathf.Abs(difference));
 
         if(Speed < 0.1f) Speed = 0f;
@@ -65,16 +77,15 @@ public class TroopsController : MonoBehaviour
             troop.NotifyTroops(Speed * Mathf.Sign(difference));
 
         }
+        
+        //transform.position += transform.right * Mathf.MoveTowards(0f, worldSpaceIntersectionPoint.x, 7f * Speed * Time.deltaTime);
 
         transform.position = new Vector3(
         Mathf.MoveTowards(transform.position.x, worldSpaceIntersectionPoint.x, 7f * Speed * Time.deltaTime), 
         transform.position.y, 
         transform.position.z
         );
-        transform.position = new Vector3(
-        ClampValueInTheBoundingVolume(transform.position.x), 
-        transform.position.y, 
-        transform.position.z);
+        transform.position = transform.position.ClampX(startPos.x -MaxBoundsHorizontally + boundingVolume.width / 2f, startPos.x + MaxBoundsHorizontally - boundingVolume.width / 2f );
 
     }
 
@@ -94,6 +105,9 @@ public class TroopsController : MonoBehaviour
     }
     #if UNITY_EDITOR
     void OnDrawGizmos(){
+        if(startPos == Vector3.zero)
+            startPos = transform.position;
+
         UpdateBoundingVolume();
         Gizmos.color = Color.white;
         //performs gizmos draws in the object's space
@@ -115,11 +129,11 @@ public class TroopsController : MonoBehaviour
         }
         Gizmos.color = new Color(1f, 0f, 0f, 0.5f);
         Gizmos.DrawWireCube(Vector3.up, new Vector3(GetMaxBounds().width, 2f, GetMaxBounds().height));
+        Gizmos.color = Color.yellow;
 
         Gizmos.matrix = Matrix4x4.identity;
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(0f, 1f, transform.position.z), new Vector3(MaxBoundsHorizontally * 2, 2f, 2f));
         
+        Gizmos.DrawWireCube(startPos + Vector3.up, transform.right * MaxBoundsHorizontally * 2f + transform.up * 2f + transform.forward * 2f);
         Gizmos.DrawSphere(debugintersectionpoint, 0.3f);
     }
     #endif
