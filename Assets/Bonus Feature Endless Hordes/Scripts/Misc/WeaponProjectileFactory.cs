@@ -12,7 +12,7 @@ class WeaponProjectileFactory : MonoBehaviour{
         () => { return Instantiate( GameObject.FindObjectOfType<TroopsController>().weaponPrefab.weaponConfig.Projectile);},
         projectile => {projectile.gameObject.SetActive(true);},
         projectile => {projectile.gameObject.SetActive(false);},
-        projectile => {Destroy(projectile);}, false, 30, 100
+        projectile => {Destroy(projectile);}, true, 30, 40
     );
 
     void Awake()

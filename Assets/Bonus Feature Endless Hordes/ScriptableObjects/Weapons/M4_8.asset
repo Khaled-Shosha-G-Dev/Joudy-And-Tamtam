@@ -23,4 +23,4 @@ MonoBehaviour:
   Damage: 5
   ProjectileLifeTime: 2
   fireRate: 5
-  projectileSpeed: 25
+  projectileSpeed: 35

@@ -108,6 +108,12 @@ public class TroopsController : MonoBehaviour
         //multiply by 2 because the "the distance to each edge" starts from the center
         boundingVolume = new Rect(0f, 0f, maxWidth * 2, maxHeight * 2);
     }
+
+    public void RemoveTroop(Troop troop){
+        _troopsCollection.Remove(troop); //remove the troop from the list
+        _numberOfTroops--; //decrement the size of troops
+        //the object handles it's deletion from the scene
+    }
     #if UNITY_EDITOR
     void OnDrawGizmos(){
         if(startPos == Vector3.zero)

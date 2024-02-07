@@ -2,18 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-class Troop : MonoBehaviour
+public class Troop : MonoBehaviour, IDamagable
 {
     private Animator _animator;
+    
+    private float _health = 100f;
 
     [HideInInspector] public Transform leftHandIKReference = null;
     [HideInInspector] public Transform rightHandIKReference = null;
 
     private Weapon _weaponReference = null;
-
-    #if UNITY_EDITOR
-    [SerializeField] bool _dontInstantiateWeapon = false;
-    #endif
 
     void Awake()
     {
@@ -41,9 +39,6 @@ class Troop : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.avatar = transform.GetChild(0).GetComponent<Animator>().avatar;
         Destroy(transform.GetChild(0).GetComponent<Animator>()); //Destroys The Animator
-        #if UNITY_EDITOR
-        if(_dontInstantiateWeapon) return;
-        #endif
     }
     
     public void InitializeWeapon(Weapon weapon){
@@ -53,5 +48,17 @@ class Troop : MonoBehaviour
 
     public void NotifyTroops(float speed){
         _animator.SetFloat("Speed", speed);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        _health -= damage;
+        if(_health <= 0f)
+            Die();
+    }
+
+    private void Die(){
+        TroopsController.Instance.RemoveTroop(this);
+        Destroy(gameObject);
     }
 }
