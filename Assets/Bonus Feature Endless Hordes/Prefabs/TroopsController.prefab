@@ -56,3 +56,5 @@ MonoBehaviour:
   - {x: -2, y: 0, z: -1}
   _troopPrefab: {fileID: 807251797915977900, guid: 26f2465e389b549cfbbb0b57dc723998,
     type: 3}
+  weaponPrefab: {fileID: 7278813565038836578, guid: 7ae34c7dddc8e553599de49714a4d3c6,
+    type: 3}

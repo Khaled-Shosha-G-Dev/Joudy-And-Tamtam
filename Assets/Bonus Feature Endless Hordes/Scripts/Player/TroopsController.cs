@@ -4,17 +4,19 @@ using UnityEditor;
 using UnityEngine;
 public class TroopsController : MonoBehaviour
 {
-    //unsigned int, we don't want any negative numbers
     private int _numberOfTroops = 0;
     private List<Troop> _troopsCollection = new List<Troop>();
 
     private Rect boundingVolume = new Rect(0f, 0f, 1f, 1f);
 
-    [Tooltip("Bounds from the center of the world to the edges, Note that the height in inimportant")]
+    public Rect GetBoundingVolume => boundingVolume;
+
+    [Tooltip("Bounds from the center of the object to the edges, Note that the height in inimportant")]
     public float MaxBoundsHorizontally;
     [Tooltip("Possible positions of every troop in order.")]
     [SerializeField] private List<Vector3> preDeterminedPositions = new List<Vector3>();
     [SerializeField] private Troop _troopPrefab;
+    [SerializeField] public Weapon weaponPrefab;
 
     private Vector3 worldSpaceIntersectionPoint = Vector3.zero;
 
@@ -24,12 +26,18 @@ public class TroopsController : MonoBehaviour
 
     Vector3 startPos = Vector3.zero;
     #endif
-    public static TroopsController troopsController = null; 
+    public static TroopsController Instance = null; 
+
+    void OnDisable()
+    {
+        if(Instance == this)
+            Instance = null;
+    }
     private void Start(){
         startPos = transform.position;
         
-        if(!troopsController){
-            troopsController = this;
+        if(!Instance){
+            Instance = this;
         }
         else {
             Debug.LogError("CAN'T HAVE MORE THAN ONE TROOPCONTROLLER");
@@ -37,18 +45,15 @@ public class TroopsController : MonoBehaviour
 
         worldSpaceIntersectionPoint = transform.forward;
 
-        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
-        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
-        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
-        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
-        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
-        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
-        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
-        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
-        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
-        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
-        _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
-        _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
+        for(int i = 0; i < 3; i++){
+            _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
+            _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
+        }
+
+        foreach(var troop in _troopsCollection){
+            troop.InitializeWeapon(weaponPrefab);
+        }
+
     } 
 
     void Update()

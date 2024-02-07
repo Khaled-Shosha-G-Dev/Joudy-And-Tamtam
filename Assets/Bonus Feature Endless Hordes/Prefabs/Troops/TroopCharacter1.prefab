@@ -52,6 +52,7 @@ MonoBehaviour:
   rightHandIKReference: {fileID: 0}
   weaponPrefab: {fileID: 7278813565038836578, guid: 7ae34c7dddc8e553599de49714a4d3c6,
     type: 3}
+  _dontInstantiateWeapon: 0
 --- !u!95 &5067022988174115739
 Animator:
   serializedVersion: 5
