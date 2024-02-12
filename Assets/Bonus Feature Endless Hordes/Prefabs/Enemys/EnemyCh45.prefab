@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 50
+  Data: {fileID: 0}
 --- !u!95 &3505942199295753571
 Animator:
   serializedVersion: 5
@@ -61,7 +62,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: d2edb9aa4a08c72d6b18720e14fd450f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -182,6 +183,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ch45_nonPBR
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211720267947752103, guid: ac0f753c421a78174be39c488fe689b0,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211720267947752103, guid: ac0f753c421a78174be39c488fe689b0,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: ac0f753c421a78174be39c488fe689b0,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

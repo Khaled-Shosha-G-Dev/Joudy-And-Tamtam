@@ -16,4 +16,11 @@ public static class MathUtilities
     public static Vector3 ClampZ(this Vector3 v, float minZ, float maxZ){
         return new Vector3(v.x, v.y, Mathf.Clamp(v.z, minZ, maxZ));
     }
+
+    public static Vector3 GetRandomPositionInABox(float width, float length, float height){
+        float x = Random.Range(-width / 2f, width / 2f);
+        float y = Random.Range(-height / 2f, height / 2f);
+        float z = Random.Range(-length / 2f, length / 2f);
+        return new Vector3(x, y, z);
+    }
 }

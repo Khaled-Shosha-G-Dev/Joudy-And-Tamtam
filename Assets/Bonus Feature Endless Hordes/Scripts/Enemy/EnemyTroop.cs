@@ -2,17 +2,12 @@ using UnityEngine;
 
 public class EnemyTroop : MonoBehaviour, IDamagable
 {
-    [SerializeField]private float _health = 100f;
+    [SerializeField] private float _health = 100f;
 
+    public EnemyData Data;
 
-    private Animator _animator = null;
-    void Start()
-    {
-        _animator = GetComponent<Animator>();
-        if(transform.GetChild(0).TryGetComponent<Animator>(out var animator)){
-            _animator.avatar = animator.avatar;
-            Destroy(animator);
-        }
+    public void Initialize(EnemyData enemyData){
+        Data = enemyData;
     }
     public void TakeDamage(float damage)
     {
@@ -21,9 +16,7 @@ public class EnemyTroop : MonoBehaviour, IDamagable
             Die();
     }
 
-    private void Die(){
+    public void Die(){
         EnemysController.Instance.RemoveEnemyTroop(this);
-
-        Destroy(gameObject);
     }
 }

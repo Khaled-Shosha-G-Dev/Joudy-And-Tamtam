@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Bonus Feature Endless Hordes/Main Scene/Main Scene.unity
+    guid: f6d5af3dc8d36ffedbeca20702bdc585
   m_configObjects: {}

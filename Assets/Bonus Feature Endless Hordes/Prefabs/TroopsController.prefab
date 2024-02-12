@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1812488290905975071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5814191630032126473}
+  m_Layer: 0
+  m_Name: TroopsHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5814191630032126473
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812488290905975071}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4028766463437948963}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7774447761987893055
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,6 +41,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4028766463437948963}
   - component: {fileID: 1733091096749344410}
+  - component: {fileID: 290084121440024226}
+  - component: {fileID: 8338440323814304229}
   m_Layer: 0
   m_Name: TroopsController
   m_TagString: Untagged
@@ -29,7 +62,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: -93.004}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5814191630032126473}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1733091096749344410
@@ -47,8 +81,8 @@ MonoBehaviour:
   MaxBoundsHorizontally: 6.25
   preDeterminedPositions:
   - {x: 0, y: 0, z: 0}
-  - {x: -0.7, y: 0, z: -1}
-  - {x: 0.7, y: 0, z: -1}
+  - {x: -0.4, y: 0, z: -1}
+  - {x: 0.4, y: 0, z: -1}
   - {x: 1.5, y: 0, z: 1}
   - {x: -1.5, y: 0, z: 1}
   - {x: 0, y: 0, z: 2}
@@ -56,5 +90,34 @@ MonoBehaviour:
   - {x: -2, y: 0, z: -1}
   _troopPrefab: {fileID: 807251797915977900, guid: 26f2465e389b549cfbbb0b57dc723998,
     type: 3}
-  weaponPrefab: {fileID: 7278813565038836578, guid: 7ae34c7dddc8e553599de49714a4d3c6,
+  weaponPrefab: {fileID: 4054433838046168950, guid: 7ae34c7dddc8e553599de49714a4d3c6,
     type: 3}
+--- !u!114 &290084121440024226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7774447761987893055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb06a9bc821afa601aec9490f1917d7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _startDistance: 52.5
+  _enemySpeed: 10
+  timeBetweenSpawns: 2
+  enemyPrefab: {fileID: 2209263186752752447, guid: f8ecc179ac42d17f9bda866531170873,
+    type: 3}
+--- !u!114 &8338440323814304229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7774447761987893055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b76b4b6942374198a9d9007db2530d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

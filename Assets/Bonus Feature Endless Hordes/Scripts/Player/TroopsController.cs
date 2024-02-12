@@ -45,7 +45,7 @@ public class TroopsController : MonoBehaviour
 
         worldSpaceIntersectionPoint = transform.forward;
 
-        for(int i = 0; i < 3; i++){
+        for(int i = 0; i < 5; i++){
             _troopsCollection.Add(Instantiate(_troopPrefab, this.transform, false));
             _troopsCollection[_numberOfTroops].transform.localPosition = preDeterminedPositions[_numberOfTroops++];
         }
@@ -76,7 +76,7 @@ public class TroopsController : MonoBehaviour
         
         float Speed = MathUtilities.Remap(0.0f, 3f, 0.0f, 1.0f, Mathf.Abs(difference));
 
-        if(Speed < 0.1f) Speed = 0f;
+        // if(Speed < 0.1f) Speed = 0f;
         
         foreach(var troop in _troopsCollection){
             troop.NotifyTroops(Speed * Mathf.Sign(difference));

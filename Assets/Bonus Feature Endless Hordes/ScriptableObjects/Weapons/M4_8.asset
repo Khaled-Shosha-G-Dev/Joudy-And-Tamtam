@@ -20,7 +20,7 @@ MonoBehaviour:
   lscale: {x: 1, y: 1, z: 1}
   Projectile: {fileID: 5778642580553917827, guid: f42ce8f4e096f5773ab264709bfe65df,
     type: 3}
-  Damage: 5
+  Damage: 100
   ProjectileLifeTime: 2
-  fireRate: 5
-  projectileSpeed: 35
+  fireRate: 7
+  projectileSpeed: 40
