@@ -20,11 +20,11 @@ public class TroopsController : MonoBehaviour
 
     private Vector3 worldSpaceIntersectionPoint = Vector3.zero;
 
+    Vector3 startPos = Vector3.zero;
     #if UNITY_EDITOR
     //Debug Purposes only.
     Vector3 debugintersectionpoint;
 
-    Vector3 startPos = Vector3.zero;
     #endif
     public static TroopsController Instance = null; 
 

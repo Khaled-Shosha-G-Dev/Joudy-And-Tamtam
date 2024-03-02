@@ -87,7 +87,7 @@ public class EnemysController : MonoBehaviour
             }
             if(possibleEnemiesToSpawn.Count == 0) yield return null; // list is empty
 
-            var enemyToSpawn = possibleEnemiesToSpawn[Random.Range(0, 2)];
+            var enemyToSpawn = possibleEnemiesToSpawn[Random.Range(0, possibleEnemiesToSpawn.Count)];
 
             switch(enemyToSpawn.type){
                 case EnemyType.Minion:

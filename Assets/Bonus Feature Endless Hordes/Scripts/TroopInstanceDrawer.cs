@@ -36,14 +36,17 @@ public class TroopInstanceDrawer : MonoBehaviour
                 renderInstances.Add(key, new RenderInstanceObject(singleton, skinnedMeshRenderer, material));
             }
         }
+        
         //Draw Instances
         foreach(GameObject key in transformInstances.Keys){
+            
+            
             Mesh mesh = new Mesh();
             // Debug.Log(renderInstances[key].singletonReferenceInScene.name);      
 
             renderInstances[key].skinnedMeshRenderer.BakeMesh(mesh);
 
-            //issue the draw calls
+            //issue the draw call
             if(transformInstances[key].Count > 0){
                 Graphics.DrawMeshInstanced(mesh, 0, renderInstances[key].material, transformInstances[key].ToArray(), transformInstances[key].Count);
             }
